@@ -23,13 +23,13 @@ const ContactList = (props) => {
     deletedItem.current = contact;
     setTimeout(() => {
       setOpen(true);
-    }, 300);
+    }, 100);
   };
 
   const onDeleteConfirm = () => {
     deleteItem(deletedItem.current);
     setOpen(false);
-  }
+  };
 
   const header = useMemo(() => (
     <HStack
@@ -47,8 +47,7 @@ const ContactList = (props) => {
       </HStack>
     ), []);
 
-  const renderItem = useCallback(({ item, index }) => {
-
+  const renderItem = useCallback(({ item }) => {
     return (
       <TouchableOpacity>
         <HStack
