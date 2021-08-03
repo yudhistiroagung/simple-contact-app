@@ -6,7 +6,8 @@ import {
   Avatar,
   VStack,
   IconButton,
-  Modal
+  Fab,
+  Icon
 } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 import { FlatList, TouchableOpacity } from 'react-native';
@@ -17,7 +18,7 @@ import useContactList from './ContactList.hook';
 const ContactList = (props) => {
   const deletedItem = useRef(undefined);
   const [open, setOpen] = useState(false);
-  const { data, deleteItem } = useContactList(props);
+  const { data, deleteItem, onAddContact, onUpdateContact } = useContactList(props);
 
   const onDeleteClick = (contact) => () => {
     deletedItem.current = contact;
@@ -35,6 +36,7 @@ const ContactList = (props) => {
     <HStack
         h={54}
         px={4}
+        mb={4}
         alignItems="center"
         borderBottomColor="#e6e6e6"
         borderBottomWidth={1}
@@ -49,7 +51,7 @@ const ContactList = (props) => {
 
   const renderItem = useCallback(({ item }) => {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onUpdateContact(item)} >
         <HStack
           p={4}
           borderBottomWidth={1}
@@ -76,6 +78,11 @@ const ContactList = (props) => {
         data={data}
         renderItem={renderItem}
         keyExtractor={({ id }) => id}
+      />
+      <Fab
+        onPress={onAddContact}
+        size="sm"
+        icon={<Icon color="white" as={<MaterialIcons name="add" />} />}
       />
       <DeleteModal
         isOpen={open}

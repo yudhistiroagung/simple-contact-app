@@ -3,7 +3,7 @@ import { useToast } from 'native-base';
 
 import ContactApi from '../../api/ContactApi';
 
-const useContactList = (props) => {
+const useContactList = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const toast = useToast();
@@ -32,6 +32,14 @@ const useContactList = (props) => {
     }
   }, []);
 
+  const onUpdateContact = (contact) => () => {
+    navigation.push('AddUpdateContact', { contact });
+  }
+
+  const onAddContact = () => {
+    navigation.push('AddUpdateContact');
+  }
+
   useEffect(() => {
     getContact();
   }, []);
@@ -39,7 +47,9 @@ const useContactList = (props) => {
   return {
     data,
     loading,
-    deleteItem
+    deleteItem,
+    onAddContact,
+    onUpdateContact
   };
 };
 

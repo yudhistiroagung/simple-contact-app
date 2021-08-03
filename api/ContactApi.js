@@ -9,7 +9,7 @@ const get = async () => {
 }
 
 const remove = async (id) => {
-  const result = await axios.delete(`${endpoint}/${id}`);
+  return axios.delete(`${endpoint}/${id}`);
 }
 
 const update = async (contact) => {
