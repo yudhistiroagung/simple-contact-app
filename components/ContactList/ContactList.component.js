@@ -6,12 +6,12 @@ import {
   Avatar,
   VStack,
   IconButton,
-  Fab,
   Icon
 } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 import { FlatList, TouchableOpacity } from 'react-native';
 
+import { Fab } from '../Fab';
 import { DeleteModal } from '../DeleteModal';
 import useContactList from './ContactList.hook';
 
@@ -73,23 +73,21 @@ const ContactList = (props) => {
 
   return (
     <SafeAreaView>
-      {header}
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={({ id }) => id}
-      />
-      <Fab
-        onPress={onAddContact}
-        size="sm"
-        icon={<Icon color="white" as={<MaterialIcons name="add" />} />}
-      />
-      <DeleteModal
-        isOpen={open}
-        onClose={() => setOpen(false)}
-        contact={deletedItem.current}
-        onConfirm={onDeleteConfirm}
-      />
+      <VStack height="100%" _web={{ height: '100vh' }}>
+        {header}
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={({ id }) => id}
+        />
+        <Fab onPress={onAddContact} />
+        <DeleteModal
+          isOpen={open}
+          onClose={() => setOpen(false)}
+          contact={deletedItem.current}
+          onConfirm={onDeleteConfirm}
+        />
+      </VStack>
     </SafeAreaView>
   );
 };

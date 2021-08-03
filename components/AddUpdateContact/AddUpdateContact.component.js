@@ -6,7 +6,7 @@ const AddUpdateContact = (props) => {
   console.log('AddUpdate', props.route.params);
   return (
     <SafeAreaView>
-      <VStack bg="#e6e6e6" />
+      <VStack height="100%" bg="#999999" />
     </SafeAreaView>
   );
 }

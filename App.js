@@ -28,10 +28,10 @@ const renderNavigation = () => (
 
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <NativeBaseProvider>
+    <NativeBaseProvider>
+      <SafeAreaProvider>
         {renderNavigation()}
-      </NativeBaseProvider>
-    </SafeAreaProvider>
+      </SafeAreaProvider>
+    </NativeBaseProvider>
   );
 }
