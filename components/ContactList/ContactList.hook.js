@@ -8,7 +8,7 @@ const useContactList = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
 
-  const getContact = useCallback(async () => {
+  const getContacts = useCallback(async () => {
     setLoading(true);
     try {
       const result = await ContactApi.get();
@@ -26,9 +26,10 @@ const useContactList = ({ navigation }) => {
   const deleteItem = useCallback(async (contact) => {
     try {
       await ContactApi.remove(contact.id);
-      getContact();
+      getContacts();
+      toast.show({ title: 'Berhasil menghapus contact!' });
     } catch (e) {
-      toast.show({ title: 'Terjadi kesalahan menghapus contact!' });
+      toast.show({ title: 'Terjadi kesalahan saat menghapus contact!' });
     }
   }, []);
 
@@ -41,7 +42,7 @@ const useContactList = ({ navigation }) => {
   }
 
   useEffect(() => {
-    getContact();
+    getContacts();
   }, []);
 
   return {

@@ -6,10 +6,9 @@ import {
   Avatar,
   VStack,
   IconButton,
-  Icon
 } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
-import { FlatList, TouchableOpacity } from 'react-native';
+import { FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 
 import { Fab } from '../Fab';
 import { DeleteModal } from '../DeleteModal';
@@ -18,7 +17,7 @@ import useContactList from './ContactList.hook';
 const ContactList = (props) => {
   const deletedItem = useRef(undefined);
   const [open, setOpen] = useState(false);
-  const { data, deleteItem, onAddContact, onUpdateContact } = useContactList(props);
+  const { data, loading, deleteItem, onAddContact, onUpdateContact } = useContactList(props);
 
   const onDeleteClick = (contact) => () => {
     deletedItem.current = contact;
@@ -75,6 +74,7 @@ const ContactList = (props) => {
     <SafeAreaView>
       <VStack height="100%" _web={{ height: '100vh' }}>
         {header}
+        {loading && <ActivityIndicator color="#999999" size="large" />}
         <FlatList
           data={data}
           renderItem={renderItem}
