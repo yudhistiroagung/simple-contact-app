@@ -38,7 +38,7 @@ const AddUpdateContact = (props) => {
           fontSize="lg"
           color="#333333"
           ml={2}
-        >Add Contact</Text>
+        >{isUpdate ? 'Update Contact' : 'Add Contact'}</Text>
       </HStack>
       {isUpdate && <IconButton
         icon={<MaterialIcons size={24} name="delete-outline" />}
@@ -81,8 +81,8 @@ const AddUpdateContact = (props) => {
   ), [values.age]);
 
   const button = useMemo(() => (
-    <Button disabled={!isButtonEnabled}>ADD</Button>
-  ), [isButtonEnabled]);
+    <Button disabled={!isButtonEnabled}>{isUpdate ? 'UPDATE' : 'ADD'}</Button>
+  ), [isButtonEnabled, isUpdate]);
 
   return (
     <SafeAreaView>
