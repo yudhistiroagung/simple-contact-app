@@ -19,12 +19,14 @@ const useAddUpdateContact = ({ navigation, route }) => {
     setLoading(true);
     try {
       await ContactApi.remove(contact.id);
+      goBack();
+      toast.show({ title: `${newContact.firstName} berhasil dihapus!` })
     } catch (e) {
       toast.show({ title: 'Terjadi kesalahan dalam menghapus contact!' })
     } finally {
       setLoading(false);
     }
-  }, [contact, setLoading]);
+  }, [contact, goBack, setLoading]);
 
   const addContact = useCallback(async (newContact) => {
     setLoading(true);
@@ -57,6 +59,7 @@ const useAddUpdateContact = ({ navigation, route }) => {
     initialValues,
     isUpdate,
     loading,
+    contact,
     goBack,
     addContact,
     updateContact,

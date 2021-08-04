@@ -3,6 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { VStack, HStack, IconButton, Text, FormControl, Input, Button } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 
+import { DeleteModal } from '../DeleteModal';
 import useAddUpdateContact from './AddUpdateContact.hook';
 import { ActivityIndicator } from 'react-native';
 
@@ -10,11 +11,14 @@ const AddUpdateContact = (props) => {
   const {
     addContact,
     updateContact,
+    deleteContact,
     goBack,
+    contact,
     loading,
     isUpdate,
     initialValues
   } = useAddUpdateContact(props);
+  const [open, setOpen] = useState(false);
   const [values, setValues] = useState({...initialValues});
 
   const handleChange = (name) => value => {
@@ -30,9 +34,18 @@ const AddUpdateContact = (props) => {
     const handler = isUpdate ? updateContact : addContact;
     const payload = {
       ...values,
-      age: parseInt(values.age)
+      age: parseInt(values.age, 10),
     }
     handler(payload);
+  };
+
+  const onDeleteClick = () => {
+    setOpen(true);
+  }
+
+  const onDeleteConfirm = () => {
+    deleteContact()
+    setOpen(false);
   };
   
   const header = useMemo(() => (
@@ -58,6 +71,7 @@ const AddUpdateContact = (props) => {
         >{isUpdate ? 'Update Contact' : 'Add Contact'}</Text>
       </HStack>
       {isUpdate && <IconButton
+        onPress={onDeleteClick}
         icon={<MaterialIcons size={24} name="delete-outline" />}
       />}
     </HStack>
@@ -118,6 +132,12 @@ const AddUpdateContact = (props) => {
           {button}
         </VStack>}
       </VStack>
+      <DeleteModal
+        contact={contact}
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={onDeleteConfirm}
+      />
     </SafeAreaView>
   );
 }

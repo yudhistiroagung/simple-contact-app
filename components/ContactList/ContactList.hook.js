@@ -42,7 +42,11 @@ const useContactList = ({ navigation }) => {
     navigation.push('AddUpdateContact');
   }
 
-  useFocusEffect(getContacts);
+  useFocusEffect(
+    useCallback(() => {
+      getContacts();
+    }, []),
+  );
 
   return {
     data,
