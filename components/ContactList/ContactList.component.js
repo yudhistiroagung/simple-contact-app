@@ -58,9 +58,9 @@ const ContactList = (props) => {
           justifyContent="space-between"
         >
           <Avatar source={{ uri: item.photo }} />
-          <VStack px={4} flex={1}>
+          <VStack px={4} flex={1} space={1}>
             <Text color="#333333">{`${item.firstName} ${item.lastName}`}</Text>
-            <Text color="#999999">{`Age ${item.age}`}</Text>
+            <Text color="#999999">{`${item.age} years old`}</Text>
           </VStack>
           <IconButton
             onPress={onDeleteClick(item)}

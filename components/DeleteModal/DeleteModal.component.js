@@ -13,8 +13,14 @@ const DeleteModal = ({ isOpen, onClose, contact, onConfirm }) => {
         <Modal.Footer>
           <Button.Group variant="ghost" space={2}>
             <Button onPress={onClose}>CANCEL</Button>
-            <Button onPress={onConfirm}>
-              CONFIRM
+            <Button
+              
+              onPress={onConfirm}
+              _text={{
+                color: '#FF0000'
+              }}
+            >
+              DELETE
             </Button>
           </Button.Group>
         </Modal.Footer>
