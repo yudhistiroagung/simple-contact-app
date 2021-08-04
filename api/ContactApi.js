@@ -14,13 +14,13 @@ const remove = async (id) => {
 
 const update = async (contact) => {
   const { id, ...updated } = contact;
-  const { data } = await axios.put(`${endpoint}/id`, updated);
+  const { data } = await axios.put(`${endpoint}/${id}`, updated);
 
   return data.data;
 }
 
 const add = async (contact) => {
-  const { data } = await axios.put(`${endpoint}/id`, contact);
+  const { data } = await axios.post(`${endpoint}`, contact);
 
   return data.data;
 }

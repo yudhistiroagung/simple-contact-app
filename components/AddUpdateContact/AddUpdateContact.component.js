@@ -4,9 +4,17 @@ import { VStack, HStack, IconButton, Text, FormControl, Input, Button } from 'na
 import { MaterialIcons } from '@expo/vector-icons';
 
 import useAddUpdateContact from './AddUpdateContact.hook';
+import { ActivityIndicator } from 'react-native';
 
 const AddUpdateContact = (props) => {
-  const { goBack, isUpdate, initialValues } = useAddUpdateContact(props);
+  const {
+    addContact,
+    updateContact,
+    goBack,
+    loading,
+    isUpdate,
+    initialValues
+  } = useAddUpdateContact(props);
   const [values, setValues] = useState({...initialValues});
 
   const handleChange = (name) => value => {
@@ -17,6 +25,15 @@ const AddUpdateContact = (props) => {
   };
 
   const isButtonEnabled = !!values.firstName && !!values.lastName && !!values.age;
+
+  const onButtonClick = () => {
+    const handler = isUpdate ? updateContact : addContact;
+    const payload = {
+      ...values,
+      age: parseInt(values.age)
+    }
+    handler(payload);
+  };
   
   const header = useMemo(() => (
     <HStack
@@ -81,19 +98,25 @@ const AddUpdateContact = (props) => {
   ), [values.age]);
 
   const button = useMemo(() => (
-    <Button disabled={!isButtonEnabled}>{isUpdate ? 'UPDATE' : 'ADD'}</Button>
-  ), [isButtonEnabled, isUpdate]);
+    <Button
+      onPress={onButtonClick}
+      disabled={!isButtonEnabled}
+    >
+      {isUpdate ? 'UPDATE' : 'ADD'}
+    </Button>
+  ), [isButtonEnabled, isUpdate, onButtonClick]);
 
   return (
     <SafeAreaView>
       <VStack height="100%" _web={{ height: '100vh' }}>
         {header}
-        <VStack p={4} space={4}>
+        {loading && <ActivityIndicator color="#999999" size="large"/>}
+        {!loading && <VStack p={4} space={4}>
           {firstName}
           {lastName}
           {age}
           {button}
-        </VStack>
+        </VStack>}
       </VStack>
     </SafeAreaView>
   );

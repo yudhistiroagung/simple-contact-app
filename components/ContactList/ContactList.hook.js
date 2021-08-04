@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useToast } from 'native-base';
+import { useFocusEffect } from '@react-navigation/native';
 
 import ContactApi from '../../api/ContactApi';
 
@@ -41,9 +42,7 @@ const useContactList = ({ navigation }) => {
     navigation.push('AddUpdateContact');
   }
 
-  useEffect(() => {
-    getContacts();
-  }, []);
+  useFocusEffect(getContacts);
 
   return {
     data,
