@@ -52,7 +52,8 @@ const ContactList = (props) => {
     return (
       <TouchableOpacity onPress={onUpdateContact(item)} >
         <HStack
-          p={4}
+          px={4}
+          py={2}
           borderBottomWidth={1}
           borderBottomColor="#e6e6e6"
           justifyContent="space-between"
@@ -75,11 +76,12 @@ const ContactList = (props) => {
       <VStack height="100%" _web={{ height: '100vh' }}>
         {header}
         {loading && <ActivityIndicator color="#999999" size="large" />}
-        <FlatList
+        {!loading && <FlatList
           data={data}
           renderItem={renderItem}
           keyExtractor={({ id }) => id}
-        />
+          ListFooterComponent={<VStack h={90}/>}
+        />}
         <Fab onPress={onAddContact} />
         <DeleteModal
           isOpen={open}
