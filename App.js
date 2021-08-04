@@ -11,7 +11,7 @@ const Stack = createStackNavigator();
 
 const renderNavigation = () => (
   <NavigationContainer>
-    <Stack.Navigator initialRouteName="AddUpdateContact">
+    <Stack.Navigator initialRouteName="ContactList">
       <Stack.Screen
         name="ContactList"
         component={ContactList}
