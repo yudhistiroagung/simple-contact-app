@@ -46,6 +46,7 @@ const useAddUpdateContact = ({ navigation, route }) => {
   }, [goBack, setLoading]);
 
   const updateContact = useCallback(async (updatedContact) => {
+    setLoading(true);
     try {
       const payload = {
         ...contact,
@@ -56,8 +57,10 @@ const useAddUpdateContact = ({ navigation, route }) => {
       toast.show({ title: `${payload.firstName} berhasil di update!` })
     } catch(e) {
       toast.show({ title: 'Terjadi kesalahan!' })
+    } finally {
+      setLoading(false);
     }
-  }, [contact, goBack]);
+  }, [contact, goBack, setLoading]);
 
   return {
     initialValues,
