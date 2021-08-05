@@ -10,7 +10,11 @@ const useAddUpdateContact = ({ navigation, route }) => {
   
   const isUpdate = !!contact;
   const initialValues = isUpdate
-    ? { firstName: contact.firstName, lastName: contact.lastName, age: contact.age }
+    ? {
+        firstName: contact.firstName, 
+        lastName: contact.lastName,
+        age: contact.age.toString()
+      }
     : {};
 
   const goBack = () => navigation.goBack();
